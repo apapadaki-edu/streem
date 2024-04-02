@@ -45,12 +45,24 @@
         <p class="af-login">Success...</p>
     </div>
     <button><a href="#">Login staff</a></button>
+    <video id="displayVideo" playsinline="" webkit-playsinline="1" controls="1"></video>
 </body>
 <script>
     /*if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
         console.log("Let's get this party started")
     }*/
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+    displayVideo = document.getElementById("displayVideo");
+    constrains = {
+        video: {
+            facingMode:'user', 
+            frameRate:{
+                ideal: 5,
+                max: 15
+            }}, 
+        audio: false,
+    }
+
+    navigator.mediaDevices.getUserMedia(constraints)
         .then(stream => {
             const mediaRecorder = new MediaRecorder(stream);
             mediaRecorder.start();
@@ -62,12 +74,15 @@
 
             mediaRecorder.addEventListener("stop", () => {
                 const blob = new Blob(chunks, { type: mediaRecorder.mimeType });
-            // send the blob to a server for broadcast
+                videoUrl = window.URL.createObjectURL(blob);
+                // send the blob to a server for broadcast
+                console.log(mediaRecorder.mimeType)
             });
 
             // stop recording after 10 seconds
             setTimeout(() => {
                 mediaRecorder.stop();
+                displayVideo.src = videoUrl;
             }, 2000);
         })
         .catch(console.error);
