@@ -64,7 +64,7 @@
             }}, 
         audio: false,
     }
-    screen.orientation.lock(oppositeOrientation)
+    screen.orientation.lock(portrait)
     .then(() => {
         navigator.mediaDevices.getUserMedia(constrains)
         .then(stream => {
@@ -91,10 +91,10 @@
             }, 2000);
         })
         .catch(console.error);
-        log.textContent = `Locked to ${oppositeOrientation}\n`;
+        
     })
     .catch((error) => {
-      log.textContent += `${error}\n`;
+      console.log(`${error}\n`);
     });
 
 </script>
