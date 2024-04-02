@@ -76,8 +76,9 @@
 
             mediaRecorder.addEventListener("stop", () => {
                 const blob = new Blob(chunks, { type: mediaRecorder.mimeType });
-                //videoUrl = window.URL.createObjectURL(blob);
+                videoUrl = window.URL.createObjectURL(blob);
                 // send the blob to a server for broadcast
+                displayVideo.src = videoUrl;
                 console.log(mediaRecorder.mimeType)
             });
 
