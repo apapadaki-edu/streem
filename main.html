@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Main</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style>
+        html {
+        font-family: "helvetica neue", helvetica, arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            row-gap: 1rem;
+            background-color: #e3e3e3;
+            box-sizing: border-box;
+            max-height: 100vh;
+            padding: 2rem;
+        }
+        h2 {
+            font-weight: unset;
+        }
+        p {
+            margin: 1rem 0;
+        }
+        a:link,
+        a:visited,
+        a:focus,
+        a:hover,
+        a:active {
+            color:black;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <h2> Starting Page </h2>
+    <div class="progress">
+        <p class="bf-login">Waiting for login...</p>
+        <p class="af-login">Success...</p>
+    </div>
+    <button><a href="#">Login staff</a></button>
+</body>
+<script>
+    /*if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
+        console.log("Let's get this party started")
+    }*/
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+        .then(stream => {
+            const mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.start();
+
+            const chunks = [];
+            mediaRecorder.addEventListener("dataavailable", event => {
+                chunks.push(event.data);
+            });
+
+            mediaRecorder.addEventListener("stop", () => {
+                const blob = new Blob(chunks, { type: mediaRecorder.mimeType });
+            // send the blob to a server for broadcast
+            });
+
+            // stop recording after 10 seconds
+            setTimeout(() => {
+                mediaRecorder.stop();
+            }, 2000);
+        })
+        .catch(console.error);
+</script>
+</html>
