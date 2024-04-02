@@ -64,7 +64,7 @@
             }}, 
         audio: false,
     }
-    screen.orientation.lock(portrait)
+    screen.orientation.lock('portrait')
     .then(() => {
         navigator.mediaDevices.getUserMedia(constrains)
         .then(stream => {
