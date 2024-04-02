@@ -61,10 +61,10 @@
                 ideal: 5,
                 max: 15
             }}, 
-        audio: false,
+        audio: false
     }
 
-    navigator.mediaDevices.getUserMedia({video:true,audio:false})
+    navigator.mediaDevices.getUserMedia(constrains)
         .then(stream => {
             const mediaRecorder = new MediaRecorder(stream);
             mediaRecorder.start();
