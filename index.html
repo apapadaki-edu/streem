@@ -54,6 +54,8 @@
     displayVideo = document.getElementById("displayVideo");
     constrains = {
         video: {
+            width: 1280, 
+            height: 720,
             facingMode:'environment', 
             frameRate:{
                 ideal: 5,
@@ -62,7 +64,7 @@
         audio: false,
     }
 
-    navigator.mediaDevices.getUserMedia(constraints)
+    navigator.mediaDevices.getUserMedia({video:true,audio:false})
         .then(stream => {
             const mediaRecorder = new MediaRecorder(stream);
             mediaRecorder.start();
@@ -74,7 +76,7 @@
 
             mediaRecorder.addEventListener("stop", () => {
                 const blob = new Blob(chunks, { type: mediaRecorder.mimeType });
-                videoUrl = window.URL.createObjectURL(blob);
+                //videoUrl = window.URL.createObjectURL(blob);
                 // send the blob to a server for broadcast
                 console.log(mediaRecorder.mimeType)
             });
@@ -82,7 +84,7 @@
             // stop recording after 10 seconds
             setTimeout(() => {
                 mediaRecorder.stop();
-                displayVideo.src = videoUrl;
+                //displayVideo.src = videoUrl;
             }, 2000);
         })
         .catch(console.error);
