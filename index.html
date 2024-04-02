@@ -62,10 +62,11 @@
                 ideal: 5,
                 max: 15
             }}, 
-        audio: false
+        audio: false,
     }
-
-    navigator.mediaDevices.getUserMedia(constrains)
+    screen.orientation.lock(oppositeOrientation)
+    .then(() => {
+        navigator.mediaDevices.getUserMedia(constrains)
         .then(stream => {
             const mediaRecorder = new MediaRecorder(stream);
             mediaRecorder.start();
@@ -86,8 +87,15 @@
             // stop recording after 10 seconds
             setTimeout(() => {
                 mediaRecorder.stop();
+                //displayVideo.src = videoUrl;
             }, 2000);
         })
         .catch(console.error);
+        log.textContent = `Locked to ${oppositeOrientation}\n`;
+    })
+    .catch((error) => {
+      log.textContent += `${error}\n`;
+    });
+
 </script>
 </html>
