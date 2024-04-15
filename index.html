@@ -64,11 +64,6 @@
             }}, 
         audio: false,
     }
-    if (document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen) {
-   setTimeout(function(){
-
-    screen.orientation.lock('portrait')
-    .then(() => {
         navigator.mediaDevices.getUserMedia(constrains)
         .then(stream => {
             const mediaRecorder = new MediaRecorder(stream);
@@ -96,12 +91,6 @@
         .catch(console.error);
         log.textContent = `Locked to ${oppositeOrientation}\n`;
     })
-    .catch((error) => {
-      log.textContent += `${error}\n`;
-    });
-   }    , 200);
-}
-
 var output = document.createElement('p');
 document.body.appendChild(output);
 
